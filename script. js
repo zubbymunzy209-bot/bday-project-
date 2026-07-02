@@ -1,0 +1,684 @@
+/* ==========================================
+BETWEEN TWO SKIES
+SCRIPT.JS
+PART A
+========================================== */
+
+// Scenes
+
+const scenes = document.querySelectorAll(".scene");
+
+let currentScene = 0;
+
+// Buttons
+
+const startBtn = document.getElementById("start-btn");
+
+const giftBox = document.getElementById("gift-box");
+
+// Background
+
+const stars = document.getElementById("stars");
+
+const particles = document.getElementById("particles");
+
+// ==========================================
+// Scene Manager
+// ==========================================
+
+function showScene(index){
+
+scenes.forEach(scene=>{
+
+scene.classList.remove("active");
+
+});
+
+scenes[index].classList.add("active");
+
+currentScene=index;
+
+}
+
+// ==========================================
+// Start Experience
+// ==========================================
+
+startBtn.addEventListener("click",()=>{
+
+showScene(1);
+
+});
+
+// ==========================================
+// Create Stars
+// ==========================================
+
+function createStars(){
+
+for(let i=0;i<180;i++){
+
+const star=document.createElement("div");
+
+star.className="star";
+
+star.style.left=Math.random()*100+"vw";
+
+star.style.top=Math.random()*100+"vh";
+
+star.style.animationDelay=
+
+Math.random()*5+"s";
+
+star.style.opacity=
+
+Math.random();
+
+star.style.transform=
+
+`scale(${Math.random()+0.4})`;
+
+stars.appendChild(star);
+
+}
+
+}
+
+createStars();
+
+// ==========================================
+// Floating Particles
+// ==========================================
+
+function createParticle(){
+
+const particle=
+
+document.createElement("div");
+
+particle.className="particle";
+
+particle.style.left=
+
+Math.random()*100+"vw";
+
+particle.style.bottom="-20px";
+
+particle.style.animationDuration=
+
+(6+Math.random()*8)+"s";
+
+particles.appendChild(particle);
+
+setTimeout(()=>{
+
+particle.remove();
+
+},14000);
+
+}
+
+setInterval(()=>{
+
+createParticle();
+
+},250);
+
+// ==========================================
+// Shooting Stars
+// ==========================================
+
+function shootingStar(){
+
+const star=
+
+document.createElement("div");
+
+star.style.position="absolute";
+
+star.style.width="3px";
+
+star.style.height="3px";
+
+star.style.background="white";
+
+star.style.borderRadius="50%";
+
+star.style.left=
+
+Math.random()*100+"vw";
+
+star.style.top=
+
+Math.random()*40+"vh";
+
+star.style.boxShadow=
+
+"0 0 20px white";
+
+star.style.transition=
+
+"all 1.4s linear";
+
+document.body.appendChild(star);
+
+requestAnimationFrame(()=>{
+
+star.style.transform=
+
+"translate(-300px,300px)";
+
+star.style.opacity="0";
+
+});
+
+setTimeout(()=>{
+
+star.remove();
+
+},1500);
+
+}
+
+setInterval(()=>{
+
+shootingStar();
+
+},7000);
+
+// ==========================================
+// Aurora Pulse
+// ==========================================
+
+const aurora=
+
+document.getElementById("aurora");
+
+let glow=0;
+
+setInterval(()=>{
+
+glow++;
+
+aurora.style.opacity=
+
+0.75+
+
+Math.sin(glow/15)*0.2;
+
+},60);
+
+// ==========================================
+// Gift Hover Animation
+// ==========================================
+
+let breathe=0;
+
+setInterval(()=>{
+
+breathe+=0.04;
+
+giftBox.style.transform=
+
+`translateY(${
+Math.sin(breathe)*6
+}px)`;
+
+},30);
+
+// ==========================================
+// Part A Finished
+// ==========================================
+/* ==========================================
+BETWEEN TWO SKIES
+SCRIPT.JS
+PART B
+Gift Opening + Memory System
+========================================== */
+
+// ==========================================
+// Memory Elements
+// ==========================================
+
+const memoryScene =
+document.getElementById("memory-scene");
+
+const memoryCard =
+document.getElementById("memory-card");
+
+const memoryPhoto =
+document.getElementById("memory-photo");
+
+const memoryTitle =
+document.getElementById("memory-title");
+
+const memoryMessage =
+document.getElementById("memory-message");
+
+const progressFill =
+document.getElementById("memory-progress-fill");
+
+const currentMemoryText =
+document.getElementById("current-memory");
+
+const totalMemoryText =
+document.getElementById("total-memories");
+
+const prevButton =
+document.getElementById("prev-memory");
+
+const nextButton =
+document.getElementById("next-memory");
+
+// ==========================================
+// Memory Data
+// ==========================================
+
+let currentMemory = 0;
+
+totalMemoryText.textContent =
+CONFIG.memories.length;
+
+// ==========================================
+// Load Memory
+// ==========================================
+
+function loadMemory(index){
+
+const memory =
+CONFIG.memories[index];
+
+memoryPhoto.src =
+memory.image;
+
+memoryTitle.textContent =
+memory.title;
+
+memoryMessage.textContent =
+memory.message;
+
+currentMemoryText.textContent =
+index + 1;
+
+progressFill.style.width =
+
+((index+1)/
+CONFIG.memories.length*100)+"%";
+
+}
+
+// ==========================================
+// Show Memory
+// ==========================================
+
+function showMemory(index){
+
+memoryCard.style.opacity="0";
+
+memoryCard.style.transform=
+
+"translateY(30px) scale(.95)";
+
+setTimeout(()=>{
+
+loadMemory(index);
+
+memoryCard.style.opacity="1";
+
+memoryCard.style.transform=
+
+"translateY(0) scale(1)";
+
+},350);
+
+}
+
+// ==========================================
+// Next
+// ==========================================
+
+function nextMemory(){
+
+currentMemory++;
+
+if(currentMemory>=
+CONFIG.memories.length){
+
+showScene(3);
+
+return;
+
+}
+
+showMemory(currentMemory);
+
+}
+
+// ==========================================
+// Previous
+// ==========================================
+
+function previousMemory(){
+
+currentMemory--;
+
+if(currentMemory<0){
+
+currentMemory=0;
+
+}
+
+showMemory(currentMemory);
+
+}
+
+// ==========================================
+// Buttons
+// ==========================================
+
+nextButton.addEventListener(
+
+"click",
+
+nextMemory
+
+);
+
+prevButton.addEventListener(
+
+"click",
+
+previousMemory
+
+);
+
+// ==========================================
+// Gift Opening
+// ==========================================
+
+giftBox.addEventListener(
+
+"click",
+
+()=>{
+
+giftBox.classList.add("open");
+
+setTimeout(()=>{
+
+showScene(2);
+
+loadMemory(0);
+
+memoryCard.style.opacity="1";
+
+},1400);
+
+}
+
+// ==========================================
+// Swipe Support
+// ==========================================
+
+let touchStart=0;
+
+let touchEnd=0;
+
+memoryScene.addEventListener(
+
+"touchstart",
+
+e=>{
+
+touchStart=
+
+e.changedTouches[0].screenX;
+
+}
+
+);
+
+memoryScene.addEventListener(
+
+"touchend",
+
+e=>{
+
+touchEnd=
+
+e.changedTouches[0].screenX;
+
+handleSwipe();
+
+}
+
+);
+
+function handleSwipe(){
+
+const distance=
+
+touchEnd-touchStart;
+
+if(Math.abs(distance)<60){
+
+return;
+
+}
+
+if(distance<0){
+
+nextMemory();
+
+}else{
+
+previousMemory();
+
+}
+
+}
+
+// ==========================================
+// Part B Finished
+// ==========================================
+/* ==========================================
+BETWEEN TWO SKIES
+SCRIPT.JS
+PART C
+Connection + Birthday + Replay
+========================================== */
+
+// ==========================================
+// Connection Scene
+// ==========================================
+
+const connectionScene =
+document.getElementById("connection-scene");
+
+const birthdayScene =
+document.getElementById("birthday-scene");
+
+const replayButton =
+document.getElementById("replay-btn");
+
+// ==========================================
+// Background Music
+// ==========================================
+
+const backgroundMusic =
+document.getElementById("background-music");
+
+const giftSound =
+document.getElementById("gift-sound");
+
+const clickSound =
+document.getElementById("click-sound");
+
+// Play music safely
+function playMusic(){
+
+if(!backgroundMusic) return;
+
+backgroundMusic.volume=.4;
+
+backgroundMusic.play().catch(()=>{});
+
+}
+
+// ==========================================
+// Gift Sound
+// ==========================================
+
+giftBox.addEventListener("click",()=>{
+
+if(giftSound){
+
+giftSound.currentTime=0;
+
+giftSound.play().catch(()=>{});
+
+}
+
+playMusic();
+
+});
+
+// ==========================================
+// Connection Scene Timer
+// ==========================================
+
+function startConnectionScene(){
+
+showScene(3);
+
+setTimeout(()=>{
+
+showScene(4);
+
+launchConfetti();
+
+},7000);
+
+}
+
+// ==========================================
+// Override Next Memory
+// ==========================================
+
+const originalNextMemory = nextMemory;
+
+nextMemory = function(){
+
+currentMemory++;
+
+if(currentMemory>=CONFIG.memories.length){
+
+startConnectionScene();
+
+return;
+
+}
+
+showMemory(currentMemory);
+
+}
+
+// ==========================================
+// Confetti
+// ==========================================
+
+function launchConfetti(){
+
+for(let i=0;i<120;i++){
+
+const piece=document.createElement("div");
+
+piece.className="confetti";
+
+piece.style.left=Math.random()*100+"vw";
+
+piece.style.background=
+
+`hsl(${Math.random()*360},100%,60%)`;
+
+piece.style.animationDuration=
+
+(3+Math.random()*3)+"s";
+
+document.body.appendChild(piece);
+
+setTimeout(()=>{
+
+piece.remove();
+
+},6000);
+
+}
+
+}
+
+// ==========================================
+// Replay
+// ==========================================
+
+replayButton.addEventListener(
+
+"click",
+
+()=>{
+
+currentMemory=0;
+
+showScene(0);
+
+loadMemory(0);
+
+progressFill.style.width="0%";
+
+if(backgroundMusic){
+
+backgroundMusic.currentTime=0;
+
+}
+
+}
+
+// ==========================================
+// Keyboard Support
+// ==========================================
+
+document.addEventListener(
+
+"keydown",
+
+e=>{
+
+if(currentScene!==2) return;
+
+if(e.key==="ArrowRight"){
+
+nextMemory();
+
+}
+
+if(e.key==="ArrowLeft"){
+
+previousMemory();
+
+}
+
+}
+
+// ==========================================
+// Startup
+// ==========================================
+
+window.addEventListener("load",()=>{
+
+showScene(0);
+
+});
+
+// ==========================================
+// END
+// ==========================================
