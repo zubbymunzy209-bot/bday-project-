@@ -478,4 +478,405 @@ opacity:0;
 
 }
 
+/* =====================================================
+   BETWEEN TWO SKIES
+   STYLE.CSS
+   PART B
+   Intro + Gift Scene
+===================================================== */
+
+/* =========================================
+INTRO SCENE
+========================================= */
+
+#intro-scene{
+
+gap:30px;
+
+}
+
+#intro-scene h1{
+
+font-size:clamp(3rem,8vw,5rem);
+
+letter-spacing:2px;
+
+text-shadow:
+
+0 0 25px rgba(90,216,255,.35);
+
+animation:
+
+titleFloat 5s ease-in-out infinite;
+
+}
+
+#intro-scene p{
+
+font-size:1.1rem;
+
+max-width:500px;
+
+opacity:.9;
+
+}
+
+#start-btn{
+
+margin-top:20px;
+
+min-width:180px;
+
+}
+
+/* =========================================
+GIFT SCENE
+========================================= */
+
+#gift-scene{
+
+gap:30px;
+
+}
+
+#gift-container{
+
+position:relative;
+
+width:220px;
+
+height:220px;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+}
+
+/* =========================================
+GLOW
+========================================= */
+
+#gift-glow{
+
+position:absolute;
+
+width:220px;
+
+height:220px;
+
+border-radius:50%;
+
+background:
+
+radial-gradient(circle,
+
+rgba(90,216,255,.35),
+
+transparent 70%);
+
+filter:blur(40px);
+
+animation:
+
+glowPulse 3s ease-in-out infinite;
+
+}
+
+/* =========================================
+BOX
+========================================= */
+
+#gift-box{
+
+position:relative;
+
+width:160px;
+
+height:160px;
+
+cursor:pointer;
+
+transition:
+
+transform .4s ease;
+
+}
+
+#gift-box:hover{
+
+transform:
+
+scale(1.05);
+
+}
+
+/* =========================================
+LID
+========================================= */
+
+.gift-lid{
+
+position:absolute;
+
+top:0;
+
+left:0;
+
+width:160px;
+
+height:40px;
+
+background:#66dfff;
+
+border-radius:12px 12px 4px 4px;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+z-index:10;
+
+transition:
+
+transform .9s ease;
+
+}
+
+/* When opened */
+
+#gift-box.open .gift-lid{
+
+transform:
+
+translateY(-45px)
+
+rotate(-15deg);
+
+}
+
+/* =========================================
+BODY
+========================================= */
+
+.gift-body{
+
+position:absolute;
+
+bottom:0;
+
+width:160px;
+
+height:120px;
+
+background:
+
+linear-gradient(
+
+180deg,
+
+#83ebff,
+
+#37bfe6);
+
+border-radius:
+
+6px 6px 18px 18px;
+
+overflow:hidden;
+
+}
+
+/* =========================================
+RIBBONS
+========================================= */
+
+.gift-ribbon-vertical{
+
+position:absolute;
+
+left:50%;
+
+transform:translateX(-50%);
+
+width:16px;
+
+height:100%;
+
+background:white;
+
+opacity:.85;
+
+}
+
+.gift-ribbon-horizontal{
+
+position:absolute;
+
+top:50%;
+
+transform:translateY(-50%);
+
+width:100%;
+
+height:16px;
+
+background:white;
+
+opacity:.85;
+
+}
+
+/* =========================================
+BOW
+========================================= */
+
+.gift-bow{
+
+width:34px;
+
+height:20px;
+
+border:5px solid white;
+
+border-radius:50%;
+
+position:relative;
+
+}
+
+.gift-bow::before{
+
+content:"";
+
+position:absolute;
+
+left:-34px;
+
+top:-5px;
+
+width:34px;
+
+height:20px;
+
+border:5px solid white;
+
+border-radius:50%;
+
+}
+
+/* =========================================
+CAPTION
+========================================= */
+
+#gift-scene p{
+
+font-size:1rem;
+
+opacity:.85;
+
+animation:
+
+fadePulse 2.5s ease-in-out infinite;
+
+}
+
+/* =========================================
+ANIMATIONS
+========================================= */
+
+@keyframes glowPulse{
+
+0%{
+
+transform:scale(.95);
+
+opacity:.5;
+
+}
+
+50%{
+
+transform:scale(1.08);
+
+opacity:1;
+
+}
+
+100%{
+
+transform:scale(.95);
+
+opacity:.5;
+
+}
+
+}
+
+@keyframes titleFloat{
+
+0%{
+
+transform:translateY(0);
+
+}
+
+50%{
+
+transform:translateY(-8px);
+
+}
+
+100%{
+
+transform:translateY(0);
+
+}
+
+}
+
+@keyframes fadePulse{
+
+0%{
+
+opacity:.45;
+
+}
+
+50%{
+
+opacity:1;
+
+}
+
+100%{
+
+opacity:.45;
+
+}
+
+}
+
+/* =========================================
+MOBILE
+========================================= */
+
+@media (max-width:600px){
+
+#gift-container{
+
+transform:scale(.9);
+
+}
+
+#intro-scene h1{
+
+font-size:3rem;
+
+}
+
 }
